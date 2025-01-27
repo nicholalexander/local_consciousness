@@ -3,6 +3,8 @@ require 'json'
 
 PORT = 4000
 
+$stdout.sync = true
+
 server = UDPSocket.new
 server.bind('0.0.0.0', PORT)
 
@@ -12,7 +14,7 @@ loop do
   message, _addr = server.recvfrom(1024)
   begin
     data = JSON.parse(message, symbolize_names: true)
-    puts "Received random number: #{data[:random_number]} | Client ID: #{data[:client_id]}"
+    puts " #{data[:client_id]}: #{data}"
   rescue JSON::ParserError
     puts "Invalid JSON received: #{message}"
   end

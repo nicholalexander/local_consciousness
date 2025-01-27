@@ -5,6 +5,8 @@ require 'securerandom'
 SERVER_HOST = '127.0.0.1'
 SERVER_PORT = 4000
 
+$stdout.sync = true
+
 client = UDPSocket.new
 client_id = SecureRandom.uuid
 
@@ -16,7 +18,7 @@ loop do
   }
 
   client.send(payload.to_json, 0, SERVER_HOST, SERVER_PORT)
-  puts "Sent: #{payload}"
+  puts "Sent: #{payload[:random_number]}"
 
   sleep 2  # Send a packet every 2 seconds
 end
